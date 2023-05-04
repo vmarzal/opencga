@@ -1,44 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Copyright 2015-2017 OpenCB
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~     http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <groupId>org.opencb.opencga</groupId>
     <artifactId>opencga</artifactId>
     <version>2.9.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>OpenCGA</name>
-    <description>OenCGA projects implements a big data platform for genomic data analysis</description>
-    <url>http://docs.opencb.org/display/opencga/</url>
+    <description>OpenCGA projects implements a big data platform for genomic data analysis</description>
 
     <modules>
+        <module>opencga-analysis</module>
         <module>opencga-core</module>
-        <module>opencga-app</module>
+        <!--<module>opencga-app</module>
         <module>opencga-catalog</module>
         <module>opencga-master</module>
-        <module>opencga-analysis</module>
         <module>opencga-storage</module>
         <module>opencga-client</module>
         <module>opencga-server</module>
         <module>opencga-clinical</module>
-        <module>opencga-test</module>
+        <module>opencga-test</module>-->
     </modules>
 
     <properties>
@@ -73,9 +56,6 @@
         <opencga-storage-hadoop-deps.artifactId>opencga-storage-hadoop-deps-${opencga-storage-hadoop-deps.id}
         </opencga-storage-hadoop-deps.artifactId>
 
-        <sonar.organization>opencb</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-
         <!-- This prevents findbugs plugin to check all the dependency locations -->
         <dependency.locations.enabled>false</dependency.locations.enabled>
 
@@ -86,73 +66,6 @@
         <surefire.testFailureIgnore>false</surefire.testFailureIgnore>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     </properties>
-
-    <scm>
-        <url>https://github.com/opencb/opencga</url>
-        <connection>scm:git:git://github.com/opencb/opencga.git</connection>
-        <developerConnection>scm:git:git@github.com:opencb/opencga.git</developerConnection>
-    </scm>
-
-    <licenses>
-        <license>
-            <name>Apache License, Version 2</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>imedina</id>
-            <name>Nacho</name>
-            <email>igmecas@gmail.com</email>
-        </developer>
-        <developer>
-            <id>j-coll</id>
-            <name>Jacobo</name>
-            <email>jacobo167@gmail.com</email>
-        </developer>
-        <developer>
-            <id>pfurio</id>
-            <name>Pedro</name>
-            <email>pedrofurio@gmail.com</email>
-        </developer>
-        <developer>
-            <id>jtarraga</id>
-            <name>Joaquin</name>
-            <email>joaquintarraga@gmail.com</email>
-        </developer>
-        <developer>
-            <id>juanfeSanahuja</id>
-            <name>Juanfe</name>
-            <email>juanfesanahuja@gmail.com</email>
-        </developer>
-    </developers>
-
-    <mailingLists>
-        <mailingList>
-            <name>OpenCB Mailing List</name>
-            <archive>https://groups.google.com/forum/#!forum/opencb</archive>
-            <post>opencb@googlegroups.com</post>
-        </mailingList>
-    </mailingLists>
-
-    <repositories>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/opencb</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -514,24 +427,6 @@
     </dependencyManagement>
 
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.2.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-shade-plugin</artifactId>
-                    <version>2.4.3</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -555,151 +450,14 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.17</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>8.1</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                    <excludes>
-                        org/opencb/opencga/core/**,
-                        org/opencb/opencga/app/**,
-                        org/opencb/opencga/analysis/**,
-                        org/opencb/opencga/server/**,
-                        org/opencb/opencga/test/**,
-                        org/opencb/opencga/storage/app/**,
-                        org/opencb/opencga/client/rest/clients/**,
-                        org/opencb/opencga/storage/alignment/**,
-                        org/opencb/opencga/storage/variant/**,
-                        org/opencb/opencga/storage/datamanagers/**,
-                        org/opencb/opencga/storage/hadoop/variant/models/protobuf/**,
-                        org/opencb/opencga/storage/server/grpc/**,
-                    </excludes>
-                    <resourceExcludes>
-                        benchmark/jmeter/**
-                    </resourceExcludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                        <configuration>
-                            <configLocation>checkstyle.xml</configLocation>
-                        </configuration>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.9.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.8</version>
-                <executions>
-                    <execution>
-                        <id>default-prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-report</id>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-check</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <!--                                <rule>-->
-                                <!--                                    <element>BUNDLE</element>-->
-                                <!--                                    <limits>-->
-                                <!--                                        <limit>-->
-                                <!--                                            <counter>COMPLEXITY</counter>-->
-                                <!--                                            <value>COVEREDRATIO</value>-->
-                                <!--                                            <minimum>0.60</minimum>-->
-                                <!--                                        </limit>-->
-                                <!--                                    </limits>-->
-                                <!--                                </rule>-->
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>default-test</id>
-                        <configuration>
-                            <skip>${surefire.skipDefaultTestExecution}</skip>
-                            <forkCount>1</forkCount>
-                            <reuseForks>false</reuseForks>
-                            <!--<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>-->
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.9</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.12.2</version>
-            </plugin>
-        </plugins>
-    </reporting>
-
     <profiles>
-        <profile>
-            <id>prod-war</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <opencga.war.name>opencga</opencga.war.name>
-            </properties>
-        </profile>
         <profile>
             <id>default-config</id>
             <activation>
-                <!-- Do not use "activeByDefault" as it might get deactivated when using any hadoop profile -->
-                <property>
-                    <name>!skipDefaultConfig</name>
-                </property>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <opencga.war.name>opencga-${project.parent.version}</opencga.war.name>
@@ -777,244 +535,6 @@
                 <OPENCGA.CELLBASE.REST.HOST>https://uk.ws.zettagenomics.com/cellbase/</OPENCGA.CELLBASE.REST.HOST>
                 <OPENCGA.CELLBASE.VERSION>v5.2</OPENCGA.CELLBASE.VERSION>
             </properties>
-        </profile>
-
-        <profile>
-            <id>deploy-maven</id>
-            <distributionManagement>
-                <repository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.2.0</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.3.2</version>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <doclint>none</doclint>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                                <configuration>
-                                    <!-- Prevent `gpg` from using pinentry programs -->
-                                    <gpgArguments>
-                                        <arg>--pinentry-mode</arg>
-                                        <arg>loopback</arg>
-                                    </gpgArguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.8</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>hdp3.1</id>
-            <properties>
-                <opencga-storage-hadoop-deps.id>hdp3.1</opencga-storage-hadoop-deps.id>
-                <opencga-storage-hadoop-deps.artifactId>opencga-storage-hadoop-deps-${opencga-storage-hadoop-deps.id}
-                </opencga-storage-hadoop-deps.artifactId>
-            </properties>
-        </profile>
-        <profile>
-            <id>emr6.1</id>
-            <properties>
-                <opencga-storage-hadoop-deps.id>emr6.1</opencga-storage-hadoop-deps.id>
-                <opencga-storage-hadoop-deps.artifactId>opencga-storage-hadoop-deps-${opencga-storage-hadoop-deps.id}
-                </opencga-storage-hadoop-deps.artifactId>
-            </properties>
-        </profile>
-        <profile>
-            <id>hdp2.6</id>
-            <properties>
-                <opencga-storage-hadoop-deps.id>hdp2.6</opencga-storage-hadoop-deps.id>
-                <opencga-storage-hadoop-deps.artifactId>opencga-storage-hadoop-deps-${opencga-storage-hadoop-deps.id}
-                </opencga-storage-hadoop-deps.artifactId>
-            </properties>
-        </profile>
-        <profile>
-            <id>runShortTests</id>
-            <properties>
-                <surefire.skipDefaultTestExecution>true</surefire.skipDefaultTestExecution>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>shortTestsExecution</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <configuration>
-                                    <testFailureIgnore>${surefire.testFailureIgnore}</testFailureIgnore>
-                                    <reuseForks>true</reuseForks>
-                                    <forkCount>5</forkCount>
-                                    <groups>org.opencb.opencga.core.testclassification.duration.ShortTests</groups>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>runMediumTests</id>
-            <properties>
-                <surefire.skipDefaultTestExecution>true</surefire.skipDefaultTestExecution>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>mediumTestsExecution</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <configuration>
-                                    <testFailureIgnore>${surefire.testFailureIgnore}</testFailureIgnore>
-                                    <!--                            <reuseForks>true</reuseForks>-->
-                                    <reuseForks>false</reuseForks>
-                                    <forkCount>1</forkCount>
-                                    <groups>org.opencb.opencga.core.testclassification.duration.MediumTests</groups>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>runLongTests</id>
-            <properties>
-                <surefire.skipDefaultTestExecution>true</surefire.skipDefaultTestExecution>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>longTestsExecution</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <configuration>
-                                    <testFailureIgnore>${surefire.testFailureIgnore}</testFailureIgnore>
-                                    <reuseForks>false</reuseForks>
-                                    <forkCount>1</forkCount>
-                                    <groups>org.opencb.opencga.core.testclassification.duration.LongTests</groups>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>runUncategorizedTests</id>
-            <properties>
-                <surefire.skipDefaultTestExecution>true</surefire.skipDefaultTestExecution>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>uncategorizedTestsExecution</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <configuration>
-                                    <testFailureIgnore>${surefire.testFailureIgnore}</testFailureIgnore>
-                                    <reuseForks>false</reuseForks>
-                                    <forkCount>1</forkCount>
-                                    <excludedGroups>
-                                        org.opencb.opencga.core.testclassification.duration.ShortTests,org.opencb.opencga.core.testclassification.duration.MediumTests,org.opencb.opencga.core.testclassification.duration.LongTests
-                                    </excludedGroups>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>deploy-github</id>
-            <distributionManagement>
-                <repository>
-                    <id>github</id>
-                    <name>GitHub OpenCB Apache Maven Packages</name>
-                    <url>https://maven.pkg.github.com/opencb/opencga</url>
-                </repository>
-            </distributionManagement>
-            <build>
-            </build>
         </profile>
     </profiles>
 
